@@ -1,0 +1,166 @@
+
+
+<div class="list-area">
+    <div class="list-wrapper">
+        <ul class="list"
+            ng-repeat="status in statuses">
+            <h3 class="status">{{status.name}}</h3>
+           
+            <li class="story"
+                ng-repeat="story in stories| filter: {status:status.name.toLowerCase()}" ng-click="setCurrentStory(story)">
+                <article>
+                    <div>
+                       <div  class="glyphicon glyphicon-remove" ng-click="deleteStory(story)"></div>
+                       <p class="title">{{story.title}}</p>
+                    </div>
+                    <div class="type-bar {{story.type}}"></div>
+                    <div>
+                       <p>{{story.description}}</p>
+                    </div>
+                </article>
+            </li>
+            <div ng-if="isEmptyStatus(status)"></div>
+        </ul>
+    </div>
+</div>
+<!-- STORY DETAILS -->
+<div class="details" ng-class="{'details-visible':isDetailsVisible}">
+	<div class="details-nv">
+		<div ng-if="!isDetailsVisible">
+            <button class="btn pull-left btn-default"
+                    ng-click="setDetailsVisible(true)">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+            </button>
+        </div>
+        <div ng-if="storyboard.detailsVisible">
+            <button class="btn pull-right btn-default"
+                    ng-click="setDetailsVisible(false)">
+                <span class="glyphicon glyphicon-arrow-right"></span>
+            </button>
+        </div>
+	</div>
+	<div ng-if="isDetailsVisible">
+		<h3>Card Details</h3>
+		<form name="detailsform" novalidate>
+			<div class="form-group">
+				<div class="controls">
+					 <label class="control-label" for="inputTitle">*Title</label>
+					 <input type="text" id="inputTitle" name="inputTitle" ng-model="editedStory.title" ng-required="true" ng-minlength="3" ng-maxlength="20" class="form-control">
+					 <div class="alert alert-warning"
+                         ng-messages="detailsForm.inputTitle.$error"
+                         ng-if="showMessages('inputTitle')">
+
+                        <div ng-message="required">
+                            <small>Required!</small>
+                        </div>
+                        <div ng-message="minlength">
+                            <small>Too short!</small>
+                        </div>
+                        <div ng-message="maxlength">
+                            <small>Too long!</small>
+                        </div>
+                    </div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="inputStatus">*Status</label>
+				<div class="controls">
+					<select id="inputStatus" name="inputStatus" class="form-control" ng-model="editedStory.status" ng-options="l.name as l.name for l in statuses" ng-required="true">
+						<option class="form-control"  value="">Select Status</option>
+					</select>
+					
+					  <div ng-class="{'alert alert-error alert-warning': detailsForm.inputStatus.$invalid}"
+                      ng-messages="detailsForm.inputStatus.$error"
+                      ng-if="showMessages('inputStatus')">
+
+                      <div ng-message="required">
+                        <small>Required!</small>
+                      </div>
+                    </div>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="control-label" for="inputType">*Type</label>
+				<div class="controls">
+					<select id="inputType" name="inputType" class="form-control" ng-model="editedStory.type"
+					ng-options="t.name as t.name for t in storyTypes">
+						<option value="">Select Type</option>
+					</select>
+					
+					
+                    <div ng-class="{'alert alert-error alert-warning': detailsForm.inputType.$invalid}"
+                      ng-messages="detailsForm.inputType.$error"
+                      ng-if="showMessages('inputType')">
+
+                      <div ng-message="required">
+                        <small>Required!</small>
+                      </div>
+                    </div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputDescription" id="inputDescription">Decsription</label>
+				<div class="controls">
+					<textarea name="inputDescription" class="form-control" rows="1" ng-model="editedStory.description">
+					</textarea>
+				</div>
+			</div>
+			<div class="form-group">
+                <label class="control-label" for="inputAcceptance">Acceptance Criteria</label>
+
+                <div class="controls">
+                    <textarea id="inputAcceptance" name="inputAcceptance" class="form-control" placeholder="Acceptance Criteria" rows="1" ng-model="editedStory.criteria"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">*Reporter</label>
+
+                <div class="controls">
+                    <select ng-model="editedStory.reporter" class="form-control"
+                        name="inputReporter" ng-required="true" ng-options="user.id as user.name for user in users">
+                        <option value="">Please select...</option>
+                    </select>
+                    <div ng-class="{'alert alert-error alert-warning':detailsForm.inputReporter.$invalid}"
+                         ng-messages="detailsForm.inputReporter.$error"
+                         ng-if="showMessages('inputReporter')">
+
+                      <div ng-message="required">
+                        <small>Required!</small>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">*Assignee</label>
+
+                <div class="controls">
+                    <select ng-model="editedStory.assignee" class="form-control"
+                        name="inputAssignee" ng-required="true" ng-options="user.id as user.name for user in users">
+                        <option value="">Please select...</option>
+                    </select>
+
+                    <div
+                      ng-class="{'alert alert-error alert-warning': detailsForm.inputAssignee.$invalid}"
+                      ng-messages="detailsForm.inputAssignee.$error"
+                      ng-if="showMessages('inputAssignee')">
+
+                      <div ng-message="required">
+                        <small>Required!</small>
+                      </div>
+                    </div>
+                </div>
+            </div>
+		</form>
+		<hr>
+		<div ng-if="currentStory">
+			<button class="btn btn-default" ng-click="updateCancel()">Cancel</button>
+			<button class="btn btn-default pull-right" ng-disabled="detailsForm.$invalid" ng-click="updateStory()">Update</button>
+		</div>
+		<div ng-if="!currentStory">
+			 <button class="btn pull-right btn-default"
+                    ng-disabled="detailsForm.$invalid"
+                    ng-click="createStory(editedStory)">New Storyboard</button>
+		</div>
+	</div>
+</div>

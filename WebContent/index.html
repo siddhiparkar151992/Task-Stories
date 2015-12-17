@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en" ng-app="taskStories">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Task Stories</title>
+
+<!-- Bootstrap -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="scripts/libs/font-awesome.css" />
+<link rel="stylesheet" type="text/css"
+	href="scripts/libs/bootstrap-responsive.css" />
+<!--link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css"-->
+
+<!--    App css -->
+<link rel="stylesheet" type="text/css" href="scripts/com/client/assets/common.css" />
+</head>
+<body ng-controller="MainCtrl">
+	<app-header></app-header>
+        <div ng-view></div>
+        <div class="modal"></div>
+
+	<!--    Library files           -->
+	<script type="text/javascript" src="scripts/libs/jquery-1.6.1.min.js"></script>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.14/angular.min.js"></script>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+	<script type="text/javascript" src="scripts/libs/angular.js"></script>
+	<script type="text/javascript"
+		src="scripts/libs/angular-route.js"></script>
+	<script type="text/javascript"
+		src="scripts/libs/angular-ui-router.min.js"></script>
+	<script type="text/javascript" src="scripts/libs/angular-animate.js"></script>
+	
+<!--Controllers -->
+	
+	<!-- Main modules -->
+
+<script type="text/javascript" src="scripts/com/client/taskstories/taskstories.js"></script>
+	<script type="text/javascript" src="scripts/com/client/taskstories/app/directives/app-header.js"></script>
+<script type="text/javascript" src="scripts/com/client/taskstories/app/models/StoriesModel.js"></script>
+<script type="text/javascript" src="scripts/com/client/taskstories/app/models/UsersModel.js"></script>
+<script type="text/javascript" src="scripts/com/client/taskstories/storyboard/storyboard.js"></script>
+<script type="text/javascript" src="scripts/com/client/taskstories/storyboard/controllers/StoryboardController.js"></script>
+
+
+<script type="text/javascript" src="scripts/com/client/taskstories/app/app.js"></script>
+<script type="text/javascript" src="scripts/com/client/taskstories/dashboard/dashboard.js"></script>
+<script type="text/javascript" src="scripts/com/client/taskstories/login/login.js"></script>
+<script type="text/javascript" src="scripts/com/client/taskstories/login/controllers/LoginController.js"></script>
+<script type="text/javascript" src="scripts/com/client/taskstories/email/emailservice/EmailService.js"></script>
+<script type="text/javascript" src="scripts/com/client/taskstories/user/user.js"></script>
+<script type="text/javascript" src="scripts/com/client/taskstories/user/controllers/UserdCtrl.js"></script>
+<script type="text/javascript" src="scripts/com/client/taskstories/app/controllers/MainController.js"></script>
+
+<script type="text/javascript" src="scripts/com/client/taskstories/config.js"></script>
+<script type="text/javascript" src="scripts/com/client/taskstories/app/services/configService.js"></script>
+<script type="text/javascript" src="scripts/com/client/taskstories/app/services/LoginService.js"></script>
+
+</body>
+</html>
